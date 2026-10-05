@@ -1,0 +1,954 @@
+/* ==========================================
+   MOODSENSE - GLOBAL STYLES
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #070b14;
+    color: #ffffff;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+
+/* ==========================================
+   NAVBAR
+========================================== */
+
+.navbar {
+    width: 100%;
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    background: rgba(7, 11, 20, 0.88);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    backdrop-filter: blur(15px);
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    letter-spacing: -1px;
+}
+
+
+.logo-icon {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 9px;
+
+    border-radius: 11px;
+
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #ec4899
+    );
+
+    box-shadow:
+        0 0 25px rgba(139, 92, 246, 0.35);
+}
+
+
+.logo span span {
+    color: #a78bfa;
+}
+
+
+.navbar nav {
+    display: flex;
+    gap: 35px;
+}
+
+
+.navbar nav a {
+    color: #9ca3af;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: 0.3s;
+}
+
+
+.navbar nav a:hover,
+.navbar nav a.active {
+    color: #ffffff;
+}
+
+
+
+/* ==========================================
+   HERO SECTION
+========================================== */
+
+.hero {
+    min-height: calc(100vh - 75px);
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    align-items: center;
+
+    gap: 70px;
+
+    padding: 80px 8%;
+
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 15% 30%,
+            rgba(139, 92, 246, 0.15),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 70%,
+            rgba(236, 72, 153, 0.10),
+            transparent 35%
+        );
+}
+
+
+.hero-content {
+    max-width: 650px;
+}
+
+
+.badge {
+    display: inline-block;
+
+    padding: 8px 16px;
+
+    margin-bottom: 25px;
+
+    border-radius: 30px;
+
+    background: rgba(139, 92, 246, 0.12);
+
+    border: 1px solid rgba(139, 92, 246, 0.25);
+
+    color: #c4b5fd;
+
+    font-size: 13px;
+
+    letter-spacing: 0.3px;
+}
+
+
+.hero h1 {
+    font-size: clamp(48px, 6vw, 78px);
+
+    line-height: 1.05;
+
+    letter-spacing: -4px;
+
+    margin-bottom: 25px;
+}
+
+
+.hero h1 span {
+    display: block;
+
+    background: linear-gradient(
+        90deg,
+        #a78bfa,
+        #f472b6
+    );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+.hero-content > p {
+    max-width: 570px;
+
+    color: #9ca3af;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+    margin-bottom: 35px;
+}
+
+
+
+/* ==========================================
+   START BUTTON
+========================================== */
+
+.start-btn {
+    border: none;
+
+    padding: 15px 25px;
+
+    border-radius: 12px;
+
+    color: #ffffff;
+
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #db2777
+    );
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 35px rgba(124, 58, 237, 0.25);
+
+    transition: 0.3s;
+}
+
+
+.start-btn span {
+    margin-right: 8px;
+}
+
+
+.start-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 18px 45px rgba(124, 58, 237, 0.4);
+}
+
+
+
+/* ==========================================
+   CAMERA CARD
+========================================== */
+
+.camera-card {
+    width: 100%;
+
+    max-width: 560px;
+
+    padding: 22px;
+
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, 0.045);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.35);
+
+    justify-self: center;
+}
+
+
+.camera-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+
+.camera-header h3 {
+    font-size: 17px;
+
+    margin-bottom: 3px;
+}
+
+
+.camera-header p {
+    color: #6b7280;
+
+    font-size: 12px;
+}
+
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    box-shadow:
+        0 0 15px rgba(34, 197, 94, 0.7);
+
+    animation: pulse 2s infinite;
+}
+
+
+@keyframes pulse {
+
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+/* ==========================================
+   CAMERA CONTAINER
+========================================== */
+
+.camera-container {
+    width: 100%;
+
+    height: 340px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 17px;
+
+    background: #03050a;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+.camera-container video {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transform: scaleX(-1);
+
+    display: block;
+}
+
+
+.camera-message {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #6b7280;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(139, 92, 246, 0.08),
+            transparent 60%
+        );
+}
+
+
+.camera-icon {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 15px;
+
+    border-radius: 50%;
+
+    background: rgba(139, 92, 246, 0.12);
+
+    font-size: 27px;
+}
+
+
+.camera-message p {
+    font-size: 13px;
+}
+
+
+
+/* ==========================================
+   CAMERA CORNERS
+========================================== */
+
+.camera-overlay {
+    position: absolute;
+
+    inset: 20px;
+
+    pointer-events: none;
+}
+
+
+.corner {
+    width: 35px;
+    height: 35px;
+
+    position: absolute;
+
+    border-color: #a78bfa;
+    border-style: solid;
+}
+
+
+.top-left {
+    top: 0;
+    left: 0;
+
+    border-width: 3px 0 0 3px;
+}
+
+
+.top-right {
+    top: 0;
+    right: 0;
+
+    border-width: 3px 3px 0 0;
+}
+
+
+.bottom-left {
+    bottom: 0;
+    left: 0;
+
+    border-width: 0 0 3px 3px;
+}
+
+
+.bottom-right {
+    bottom: 0;
+    right: 0;
+
+    border-width: 0 3px 3px 0;
+}
+
+
+
+/* ==========================================
+   SCAN LINE
+========================================== */
+
+.scan-line {
+    width: 100%;
+
+    height: 2px;
+
+    position: absolute;
+
+    top: 0;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #a78bfa,
+        transparent
+    );
+
+    opacity: 0.5;
+
+    animation: scan 3s linear infinite;
+}
+
+
+@keyframes scan {
+
+    0% {
+        top: 0;
+    }
+
+    100% {
+        top: 100%;
+    }
+}
+
+
+
+/* ==========================================
+   DETECT BUTTON
+========================================== */
+
+.detect-btn {
+    width: 100%;
+
+    margin-top: 18px;
+
+    padding: 14px;
+
+    border: 1px solid rgba(167, 139, 250, 0.3);
+
+    border-radius: 11px;
+
+    background: rgba(139, 92, 246, 0.12);
+
+    color: #c4b5fd;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.detect-btn:hover {
+    background: rgba(139, 92, 246, 0.22);
+
+    border-color: rgba(167, 139, 250, 0.5);
+}
+
+
+.detection-status {
+    text-align: center;
+
+    color: #6b7280;
+
+    font-size: 11px;
+
+    margin-top: 12px;
+}
+
+
+
+/* ==========================================
+   COMMON SECTION
+========================================== */
+
+.how-section,
+.emotion-section,
+.about-section {
+    padding: 110px 8%;
+}
+
+
+.section-heading {
+    text-align: center;
+
+    max-width: 700px;
+
+    margin: 0 auto 60px;
+}
+
+
+.section-heading > span,
+.about-content > span {
+    color: #a78bfa;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+.section-heading h2 {
+    font-size: 40px;
+
+    letter-spacing: -1.5px;
+
+    margin: 12px 0;
+}
+
+
+.section-heading p {
+    color: #6b7280;
+
+    font-size: 15px;
+}
+
+
+
+/* ==========================================
+   HOW IT WORKS
+========================================== */
+
+.steps {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+
+    max-width: 1100px;
+
+    margin: auto;
+}
+
+
+.step-card {
+    position: relative;
+
+    padding: 32px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+
+    transition: 0.3s;
+}
+
+
+.step-card:hover {
+    transform: translateY(-7px);
+
+    border-color:
+        rgba(139, 92, 246, 0.35);
+
+    background:
+        rgba(139, 92, 246, 0.06);
+}
+
+
+.step-number {
+    position: absolute;
+
+    top: 20px;
+    right: 22px;
+
+    color: #374151;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.step-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 25px;
+
+    border-radius: 14px;
+
+    background: rgba(139, 92, 246, 0.12);
+
+    font-size: 25px;
+}
+
+
+.step-card h3 {
+    margin-bottom: 10px;
+
+    font-size: 18px;
+}
+
+
+.step-card p {
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+
+/* ==========================================
+   EMOTION SECTION
+========================================== */
+
+.emotion-section {
+    background:
+        rgba(255, 255, 255, 0.015);
+}
+
+
+.emotion-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    gap: 15px;
+
+    max-width: 1200px;
+
+    margin: auto;
+}
+
+
+.emotion-card {
+    padding: 25px 15px;
+
+    text-align: center;
+
+    border-radius: 15px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    transition: 0.3s;
+}
+
+
+.emotion-card:hover {
+    transform: translateY(-5px);
+
+    background:
+        rgba(139, 92, 246, 0.08);
+}
+
+
+.emotion-card > div {
+    font-size: 32px;
+
+    margin-bottom: 10px;
+}
+
+
+.emotion-card h3 {
+    font-size: 14px;
+
+    margin-bottom: 4px;
+}
+
+
+.emotion-card p {
+    color: #6b7280;
+
+    font-size: 11px;
+}
+
+
+
+/* ==========================================
+   ABOUT
+========================================== */
+
+.about-section {
+    text-align: center;
+}
+
+
+.about-content {
+    max-width: 800px;
+
+    margin: auto;
+}
+
+
+.about-content h2 {
+    font-size: 42px;
+
+    line-height: 1.2;
+
+    margin: 15px 0 25px;
+}
+
+
+.about-content p {
+    color: #8b93a3;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    margin-bottom: 15px;
+}
+
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+footer {
+    padding: 50px 8%;
+
+    text-align: center;
+
+    border-top: 1px solid
+        rgba(255, 255, 255, 0.07);
+
+    background: #050810;
+}
+
+
+.footer-logo {
+    font-size: 21px;
+
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+
+footer p {
+    color: #6b7280;
+
+    font-size: 12px;
+}
+
+
+.copyright {
+    margin-top: 18px;
+
+    color: #4b5563 !important;
+}
+
+
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 1000px) {
+
+    .hero {
+        grid-template-columns: 1fr;
+
+        text-align: center;
+
+        padding-top: 60px;
+    }
+
+
+    .hero-content {
+        margin: auto;
+    }
+
+
+    .camera-card {
+        margin: auto;
+    }
+
+
+    .steps {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .emotion-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+}
+
+
+
+@media (max-width: 650px) {
+
+    .navbar {
+        padding: 0 5%;
+    }
+
+
+    .navbar nav {
+        display: none;
+    }
+
+
+    .hero {
+        padding: 50px 5%;
+    }
+
+
+    .hero h1 {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .hero-content > p {
+        font-size: 15px;
+    }
+
+
+    .camera-container {
+        height: 280px;
+    }
+
+
+    .how-section,
+    .emotion-section,
+    .about-section {
+        padding: 80px 5%;
+    }
+
+
+    .section-heading h2 {
+        font-size: 32px;
+    }
+
+
+    .emotion-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .about-content h2 {
+        font-size: 32px;
+    }
+
+}

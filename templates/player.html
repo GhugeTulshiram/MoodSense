@@ -1,0 +1,813 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MoodSense - Your Music</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    rgba(5, 8, 20, 0.90),
+                    rgba(5, 8, 20, 0.95)
+                ),
+                url("https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2200&q=90");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+        }
+
+
+        /* ==========================================
+           NAVBAR
+           ========================================== */
+
+        nav {
+
+            height: 75px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            background:
+                rgba(10, 15, 30, 0.75);
+
+            backdrop-filter: blur(18px);
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.10);
+
+        }
+
+        .logo {
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+        }
+
+        .logo span {
+            color: #8b5cf6;
+        }
+
+        .home-btn {
+
+            text-decoration: none;
+
+            color: white;
+
+            padding: 11px 20px;
+
+            border-radius: 25px;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            border:
+                1px solid rgba(255,255,255,0.15);
+
+        }
+
+        .home-btn:hover {
+
+            background:
+                rgba(139,92,246,0.30);
+
+        }
+
+
+        /* ==========================================
+           MAIN
+           ========================================== */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1100px;
+
+            margin: 50px auto;
+
+            text-align: center;
+
+        }
+
+        .title {
+
+            font-size: 42px;
+
+            margin-bottom: 10px;
+
+        }
+
+        .subtitle {
+
+            color: #b8bfd3;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        /* ==========================================
+           EMOTION
+           ========================================== */
+
+        .emotion-box {
+
+            display: inline-block;
+
+            padding: 12px 25px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(139,92,246,0.15);
+
+            border:
+                1px solid rgba(139,92,246,0.45);
+
+            margin-bottom: 30px;
+
+            font-size: 18px;
+
+        }
+
+
+        /* ==========================================
+           PLAYER
+           ========================================== */
+
+        .player-card {
+
+            max-width: 700px;
+
+            margin: auto;
+
+            padding: 30px;
+
+            border-radius: 25px;
+
+            background:
+                rgba(15,20,40,0.75);
+
+            backdrop-filter:
+                blur(20px);
+
+            border:
+                1px solid rgba(255,255,255,0.12);
+
+            box-shadow:
+                0 25px 70px rgba(0,0,0,0.45);
+
+        }
+
+        .player-card h2 {
+
+            margin-bottom: 20px;
+
+        }
+
+        .youtube-player {
+
+            position: relative;
+
+            width: 100%;
+
+            aspect-ratio: 16 / 9;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            background: black;
+
+        }
+
+        .youtube-player iframe {
+
+            width: 100%;
+
+            height: 100%;
+
+            border: none;
+
+        }
+
+
+        /* ==========================================
+           SONG INFO
+           ========================================== */
+
+        .song-info {
+
+            margin-top: 22px;
+
+        }
+
+        .song-info h3 {
+
+            font-size: 23px;
+
+            margin-bottom: 8px;
+
+        }
+
+        .song-info p {
+
+            color: #aeb6cc;
+
+        }
+
+
+        /* ==========================================
+           SONG LIST
+           ========================================== */
+
+        .songs-title {
+
+            margin-top: 50px;
+
+            margin-bottom: 20px;
+
+            font-size: 28px;
+
+        }
+
+        #music-list {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 18px;
+
+        }
+
+        .song-card {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 15px;
+
+            text-align: left;
+
+            border-radius: 18px;
+
+            background:
+                rgba(15,20,40,0.70);
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            transition: 0.3s;
+
+        }
+
+        .song-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(139,92,246,0.55);
+
+        }
+
+        .song-card img {
+
+            width: 75px;
+
+            height: 75px;
+
+            object-fit: cover;
+
+            border-radius: 12px;
+
+        }
+
+        .song-details {
+
+            flex: 1;
+
+        }
+
+        .song-details h3 {
+
+            font-size: 16px;
+
+            margin-bottom: 5px;
+
+        }
+
+        .song-details p {
+
+            color: #aeb6cc;
+
+            font-size: 14px;
+
+        }
+
+        .play-btn {
+
+            padding: 9px 15px;
+
+            border: none;
+
+            border-radius: 20px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #8b5cf6,
+                    #ec4899
+                );
+
+            cursor: pointer;
+
+        }
+
+
+        /* ==========================================
+           LOADING
+           ========================================== */
+
+        .loading {
+
+            padding: 40px;
+
+            color: #b8bfd3;
+
+            font-size: 18px;
+
+        }
+
+
+        /* ==========================================
+           RESPONSIVE
+           ========================================== */
+
+        @media(max-width: 600px) {
+
+            .title {
+                font-size: 30px;
+            }
+
+            .player-card {
+                padding: 18px;
+            }
+
+            nav {
+                padding: 0 5%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     NAVBAR
+     ========================================== -->
+
+<nav>
+
+    <div class="logo">
+        Mood<span>Sense</span> 🎵
+    </div>
+
+    <a href="/" class="home-btn">
+        ← Home
+    </a>
+
+</nav>
+
+
+
+<!-- ==========================================
+     MAIN
+     ========================================== -->
+
+<div class="container">
+
+    <h1 class="title">
+        Your Mood. Your Music. 🎵
+    </h1>
+
+    <p class="subtitle">
+        Music selected specially for your detected emotion.
+    </p>
+
+
+    <!-- Emotion -->
+
+    <div class="emotion-box">
+
+        Detected Emotion:
+        <strong id="emotion">
+            Detecting...
+        </strong>
+
+    </div>
+
+
+    <!-- ==========================================
+         PLAYER
+         ========================================== -->
+
+    <div class="player-card">
+
+        <h2>
+            Now Playing
+        </h2>
+
+
+        <div
+            id="youtube-player"
+            class="youtube-player">
+
+            <div class="loading">
+                Finding the perfect song for you...
+            </div>
+
+        </div>
+
+
+        <div class="song-info">
+
+            <h3 id="current-song">
+                Loading...
+            </h3>
+
+            <p id="current-artist">
+                Please wait...
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         RECOMMENDED SONGS
+         ========================================== -->
+
+    <h2 class="songs-title">
+        Recommended For You 🎧
+    </h2>
+
+
+    <div id="music-list">
+
+        <div class="loading">
+            Loading songs...
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    // ==========================================
+    // GET EMOTION FROM URL
+    // ==========================================
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const emotion =
+        params.get("emotion");
+
+
+    // Show emotion
+
+    if (emotion) {
+
+        document.getElementById(
+            "emotion"
+        ).innerText =
+            emotion.toUpperCase();
+
+    }
+
+
+    // ==========================================
+    // LOAD YOUTUBE MUSIC
+    // ==========================================
+
+    async function loadMusic() {
+
+        if (!emotion) {
+
+            document.getElementById(
+                "music-list"
+            ).innerHTML =
+                "<div class='loading'>Emotion not found.</div>";
+
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/recommend/" +
+                    encodeURIComponent(
+                        emotion
+                    )
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Music Response:",
+                data
+            );
+
+
+            if (
+                !data.success ||
+                !data.songs ||
+                data.songs.length === 0
+            ) {
+
+                document.getElementById(
+                    "music-list"
+                ).innerHTML =
+                    "<div class='loading'>No songs found.</div>";
+
+                return;
+
+            }
+
+
+            const songs =
+                data.songs;
+
+
+            // ==========================================
+            // FIRST SONG = AUTO PLAYER
+            // ==========================================
+
+            const firstSong =
+                songs[0];
+
+
+            playSong(
+                firstSong
+            );
+
+
+            // ==========================================
+            // SHOW ALL SONGS
+            // ==========================================
+
+            const musicList =
+                document.getElementById(
+                    "music-list"
+                );
+
+            musicList.innerHTML = "";
+
+
+            songs.forEach(
+                function(song) {
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+                    card.className =
+                        "song-card";
+
+
+                    card.innerHTML = `
+
+                        <img
+                            src="${song.image}"
+                            alt="Song"
+                        >
+
+                        <div class="song-details">
+
+                            <h3>
+                                ${escapeHTML(
+                                    song.name
+                                )}
+                            </h3>
+
+                            <p>
+                                ${escapeHTML(
+                                    song.artist
+                                )}
+                            </p>
+
+                        </div>
+
+                        <button
+                            class="play-btn"
+                            type="button">
+
+                            ▶ Play
+
+                        </button>
+
+                    `;
+
+
+                    card.querySelector(
+                        ".play-btn"
+                    ).addEventListener(
+                        "click",
+                        function() {
+
+                            playSong(song);
+
+                        }
+                    );
+
+
+                    musicList.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Music Error:",
+                error
+            );
+
+
+            document.getElementById(
+                "music-list"
+            ).innerHTML =
+                "<div class='loading'>Unable to load music.</div>";
+
+        }
+
+    }
+
+
+    // ==========================================
+    // PLAY YOUTUBE SONG
+    // ==========================================
+
+    function playSong(song) {
+
+        if (!song.video_id) {
+
+            console.error(
+                "YouTube video ID missing."
+            );
+
+            return;
+        }
+
+
+        const player =
+            document.getElementById(
+                "youtube-player"
+            );
+
+
+        // YouTube embed
+        player.innerHTML = `
+
+            <iframe
+
+                src="https://www.youtube.com/embed/${song.video_id}?autoplay=1&rel=0"
+
+                title="YouTube Music Player"
+
+                allow="autoplay; encrypted-media; picture-in-picture"
+
+                allowfullscreen>
+
+            </iframe>
+
+        `;
+
+
+        document.getElementById(
+            "current-song"
+        ).innerText =
+            song.name;
+
+
+        document.getElementById(
+            "current-artist"
+        ).innerText =
+            song.artist;
+
+    }
+
+
+    // ==========================================
+    // ESCAPE HTML
+    // ==========================================
+
+    function escapeHTML(value) {
+
+        if (!value) {
+            return "";
+        }
+
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.textContent =
+            value;
+
+
+        return div.innerHTML;
+
+    }
+
+
+    // ==========================================
+    // START
+    // ==========================================
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            loadMusic();
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>
+```

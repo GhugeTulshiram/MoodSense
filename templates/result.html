@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MoodSense | Your Mood Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .result-page {
+            min-height: 100vh;
+            padding: 140px 20px 80px;
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(96, 165, 250, 0.15),
+                    transparent 40%
+                ),
+                #050b18;
+        }
+
+        .result-container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .result-header h1 {
+            font-size: 42px;
+            margin: 15px 0;
+        }
+
+        .result-header p {
+            color: #94a3b8;
+        }
+
+        .result-card {
+            max-width: 650px;
+            margin: auto;
+            padding: 45px;
+            text-align: center;
+            border-radius: 25px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+        }
+
+        .emotion-big {
+            font-size: 80px;
+            margin-bottom: 15px;
+        }
+
+        .emotion-name {
+            font-size: 42px;
+            font-weight: 700;
+            text-transform: capitalize;
+            margin-bottom: 10px;
+        }
+
+        .confidence-text {
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        .confidence-bar {
+            width: 100%;
+            height: 12px;
+            background: #1e293b;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 20px;
+            background: linear-gradient(
+                90deg,
+                #60a5fa,
+                #2563eb
+            );
+            transition: width 1s ease;
+        }
+
+        .result-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .result-button {
+            padding: 13px 25px;
+            border-radius: 12px;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            color: white;
+            background: #2563eb;
+        }
+
+        .result-button.secondary {
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+
+        .music-section {
+            margin-top: 70px;
+        }
+
+        .music-section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .music-section-title h2 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .music-section-title p {
+            color: #94a3b8;
+        }
+
+        #music-list {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+        }
+
+        .song-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(96, 165, 250, 0.15);
+            border-radius: 18px;
+            transition: 0.3s;
+        }
+
+        .song-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(96, 165, 250, 0.5);
+        }
+
+        .song-image {
+            width: 75px;
+            height: 75px;
+            flex-shrink: 0;
+        }
+
+        .song-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .song-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .song-info h3 {
+            margin: 0 0 5px;
+            font-size: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .song-info p {
+            margin: 0 0 5px;
+            color: #60a5fa;
+            font-size: 14px;
+        }
+
+        .song-info span {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .song-action button {
+            padding: 9px 13px;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            color: white;
+            background: #2563eb;
+            font-weight: 600;
+        }
+
+        .music-loading,
+        .music-empty,
+        .music-error {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 20px;
+            color: #94a3b8;
+        }
+
+        .loading-icon,
+        .empty-icon,
+        .error-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .footer-simple {
+            text-align: center;
+            padding: 35px 20px;
+            color: #64748b;
+        }
+
+
+        @media (max-width: 600px) {
+
+            .result-page {
+                padding-top: 110px;
+            }
+
+            .result-card {
+                padding: 30px 20px;
+            }
+
+            .result-header h1 {
+                font-size: 32px;
+            }
+
+            .emotion-name {
+                font-size: 34px;
+            }
+
+            .song-card {
+                flex-wrap: wrap;
+            }
+
+            .song-action {
+                width: 100%;
+            }
+
+            .song-action button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     NAVBAR
+========================================== -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                🎧
+            </div>
+
+            <span>
+                MoodSense
+            </span>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/#how-it-works">
+                How It Works
+            </a>
+
+            <a href="/#emotions">
+                Emotions
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ==========================================
+     RESULT PAGE
+========================================== -->
+
+<main class="result-page">
+
+    <div class="result-container">
+
+
+        <!-- RESULT HEADER -->
+
+        <div class="result-header">
+
+            <span class="section-tag">
+                EMOTION DETECTED
+            </span>
+
+            <h1>
+                Your Mood Result
+            </h1>
+
+            <p>
+                MoodSense analyzed your facial
+                expression and detected your mood.
+            </p>
+
+        </div>
+
+
+
+        <!-- RESULT CARD -->
+
+        <div class="result-card">
+
+
+            <div class="emotion-big"
+                 id="emotion-icon">
+
+                😊
+
+            </div>
+
+
+            <div class="emotion-name"
+                 id="detected-emotion">
+
+                Loading...
+
+            </div>
+
+
+            <p class="confidence-text">
+
+                Detection Confidence:
+                <strong id="confidence-value">
+                    0%
+                </strong>
+
+            </p>
+
+
+            <div class="confidence-bar">
+
+                <div
+                    class="confidence-fill"
+                    id="confidence-fill">
+                </div>
+
+            </div>
+
+
+            <div class="result-buttons">
+
+                <a href="/"
+                   class="result-button">
+
+                    📷 Detect Again
+
+                </a>
+
+
+                <a
+                    id="player-button"
+                    href="#music"
+                    class="result-button secondary">
+
+                    🎵 View Music
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ======================================
+             MUSIC RECOMMENDATIONS
+        ======================================= -->
+
+        <section class="music-section"
+                 id="music">
+
+
+            <div class="music-section-title">
+
+                <span class="section-tag">
+                    PERSONALIZED MUSIC
+                </span>
+
+                <h2>
+                    Music For Your Mood
+                </h2>
+
+                <p>
+                    Recommended songs based on
+                    your detected emotion.
+                </p>
+
+            </div>
+
+
+            <div id="music-list">
+
+                <div class="music-loading">
+
+                    <div class="loading-icon">
+                        🎵
+                    </div>
+
+                    <p>
+                        Loading music...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </div>
+
+</main>
+
+
+
+<!-- ==========================================
+     FOOTER
+========================================== -->
+
+<footer class="footer-simple">
+
+    © 2026 MoodSense.
+    Your Mood. Your Music.
+
+</footer>
+
+
+
+<!-- ==========================================
+     MUSIC JAVASCRIPT
+========================================== -->
+
+<script src="{{ url_for('static', filename='js/music.js') }}"></script>
+
+
+<!-- ==========================================
+     RESULT PAGE SCRIPT
+========================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const emotion =
+            params.get("emotion");
+
+
+        const confidence =
+            parseFloat(
+                params.get("confidence")
+            ) || 0;
+
+
+        const emotionElement =
+            document.getElementById(
+                "detected-emotion"
+            );
+
+
+        const emotionIcon =
+            document.getElementById(
+                "emotion-icon"
+            );
+
+
+        const confidenceValue =
+            document.getElementById(
+                "confidence-value"
+            );
+
+
+        const confidenceFill =
+            document.getElementById(
+                "confidence-fill"
+            );
+
+
+        const playerButton =
+            document.getElementById(
+                "player-button"
+            );
+
+
+        const icons = {
+
+            happy: "😊",
+
+            sad: "😢",
+
+            angry: "😠",
+
+            fear: "😨",
+
+            disgust: "🤢",
+
+            surprise: "😲",
+
+            neutral: "😐"
+
+        };
+
+
+        if (emotion) {
+
+            const cleanEmotion =
+                emotion.toLowerCase();
+
+
+            emotionElement.innerText =
+                emotion;
+
+
+            emotionIcon.innerText =
+                icons[cleanEmotion] || "🎵";
+
+
+            playerButton.href =
+                "/player?emotion=" +
+                encodeURIComponent(
+                    emotion
+                );
+
+
+            loadRecommendedSongs(
+                emotion
+            );
+
+        }
+
+
+        let percentage =
+            confidence;
+
+
+        if (percentage <= 1) {
+            percentage =
+                percentage * 100;
+        }
+
+
+        percentage =
+            Math.min(
+                Math.max(
+                    percentage,
+                    0
+                ),
+                100
+            );
+
+
+        confidenceValue.innerText =
+            percentage.toFixed(1) + "%";
+
+
+        setTimeout(
+            function() {
+
+                confidenceFill.style.width =
+                    percentage + "%";
+
+            },
+            200
+        );
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
