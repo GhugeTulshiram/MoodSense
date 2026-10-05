@@ -6,3 +6,4 @@ tensorflow==2.20.0
 spotipy==2.25.1
 requests==2.32.5
 Pillow==11.3.0
+gunicorn==23.0.0
